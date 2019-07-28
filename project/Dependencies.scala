@@ -4,7 +4,7 @@ object Dependencies {
 
   private[this] object Versions {
     val akka:                     String = "2.5.23"
-    val akkaHttp:                 String = "10.1.8"
+    val akkaHttp:                 String = "10.1.9"
     val akkaHttpCors:             String = "0.4.1"
     val akkaPersistenceInmemory:  String = "2.5.15.2"
     val akkaPersistenceCassandra: String = "0.99"
@@ -21,11 +21,9 @@ object Dependencies {
     val h2:                       String = "1.4.199"
     val classutil:                String = "1.5.1"
     val mockitoCore:              String = "3.0.0"
-    val commonsCodec:             String = "1.12"
+    val commonsCodec:             String = "1.13"
     val slf4jVersion:             String = "1.7.26"
-    val akkaManagementVersion:    String = "1.0.0-RC4"
-    val akkaDiscoveryDnsVersion:  String = "0.20.0"
-    val reactiveLibVersion:       String = "1.7.0"
+    val akkaManagementVersion:    String = "1.0.1"
   }
 
   val all: Seq[ModuleID] = ProductionDependencies.values ++ TestDependencies.values
@@ -36,30 +34,27 @@ object Dependencies {
       : Seq[ModuleID] = akka ++ avro4s ++ playJson ++ pureConfig ++ logging ++ query ++ postgres ++ enumeratum ++ kamon ++ commonCodec
 
     private lazy val akka: Seq[ModuleID] = Seq(
-      "com.typesafe.akka"             %% "akka-actor"                          % Versions.akka,
-      "com.typesafe.akka"             %% "akka-stream"                         % Versions.akka,
-      "com.typesafe.akka"             %% "akka-cluster"                        % Versions.akka,
-      "com.typesafe.akka"             %% "akka-cluster-sharding"               % Versions.akka,
-      "com.typesafe.akka"             %% "akka-persistence-query"              % Versions.akka,
-      "com.typesafe.akka"             %% "akka-http-core"                      % Versions.akkaHttp,
-      "com.typesafe.akka"             %% "akka-persistence-cassandra"          % Versions.akkaPersistenceCassandra,
-      "ch.megard"                     %% "akka-http-cors"                      % Versions.akkaHttpCors,
-      "com.lightbend.akka.management" %% "akka-management"                     % Versions.akkaManagementVersion,
-      "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap"   % Versions.akkaManagementVersion,
-      "com.lightbend.akka.discovery"  %% "akka-discovery-kubernetes-api"       % Versions.akkaManagementVersion,
-      "com.lightbend.akka.discovery"  %% "akka-discovery-dns"                  % Versions.akkaDiscoveryDnsVersion,
-      "com.github.TanUkkii007"        %% "akka-cluster-custom-downing"         % "0.0.12",
-      "com.lightbend.rp"              %% "reactive-lib-akka-cluster-bootstrap" % Versions.reactiveLibVersion,
-      "com.lightbend.rp"              %% "reactive-lib-status"                 % Versions.reactiveLibVersion,
+      "com.typesafe.akka"             %% "akka-actor"                   % Versions.akka,
+      "com.typesafe.akka"             %% "akka-stream"                  % Versions.akka,
+      "com.typesafe.akka"             %% "akka-cluster"                 % Versions.akka,
+      "com.typesafe.akka"             %% "akka-cluster-sharding"        % Versions.akka,
+      "com.typesafe.akka"             %% "akka-persistence-query"       % Versions.akka,
+      "com.typesafe.akka"             %% "akka-http-core"               % Versions.akkaHttp,
+      "com.typesafe.akka"             %% "akka-persistence-cassandra"   % Versions.akkaPersistenceCassandra,
+      "ch.megard"                     %% "akka-http-cors"               % Versions.akkaHttpCors,
+      "com.lightbend.akka.management" %% "akka-management"              % Versions.akkaManagementVersion,
+      "com.lightbend.akka.management" %% "akka-management-cluster-http" % Versions.akkaManagementVersion,
+      "com.typesafe.akka"             %% "akka-discovery"               % Versions.akka,
+      "com.github.TanUkkii007"        %% "akka-cluster-custom-downing"  % "0.0.12"
     )
 
     private lazy val avro4s: Seq[ModuleID] = Seq("com.sksamuel.avro4s" %% "avro4s-core" % Versions.avro4s)
 
     private lazy val logging: Seq[ModuleID] = Seq(
-      "ch.qos.logback"             % "logback-classic"  % Versions.logbackClassic,
-      "com.typesafe.scala-logging" %% "scala-logging"   % Versions.scalaLogging,
-      "org.slf4j"                  % "log4j-over-slf4j" % Versions.slf4jVersion,
-      "com.typesafe.akka"          %% "akka-slf4j"      % Versions.akka
+      "ch.qos.logback"             % "logback-classic" % Versions.logbackClassic,
+      "com.typesafe.scala-logging" %% "scala-logging"  % Versions.scalaLogging,
+      "org.codehaus.janino"        % "janino"          % "3.0.14",
+      "com.typesafe.akka"          %% "akka-slf4j"     % Versions.akka
     )
 
     private lazy val pureConfig: Seq[ModuleID] = Seq("com.github.pureconfig" %% "pureconfig" % Versions.pureConfig)
@@ -74,14 +69,14 @@ object Dependencies {
 
     private lazy val kamon: Seq[ModuleID] = Seq(
       "io.kamon" %% "kamon-akka-2.5"        % "1.1.4",
-      "io.kamon" %% "kamon-scala-future"    % "2.0.0",
-      "io.kamon" %% "kamon-core"            % "2.0.0",
-      "io.kamon" %% "kamon-logback"         % "2.0.0",
-      "io.kamon" %% "kamon-zipkin"          % "2.0.0",
+      "io.kamon" %% "kamon-scala-future"    % "1.1.0",
+      "io.kamon" %% "kamon-core"            % "1.1.6",
+      "io.kamon" %% "kamon-logback"         % "1.0.7",
+      "io.kamon" %% "kamon-zipkin"          % "1.0.1",
       "io.kamon" %% "kamon-akka-http-2.5"   % "1.1.2",
-      "io.kamon" %% "kamon-prometheus"      % "2.0.0",
-      "io.kamon" %% "kamon-system-metrics"  % "2.0.0",
-      "io.kamon" %% "kamon-jdbc"            % "2.0.0",
+      "io.kamon" %% "kamon-prometheus"      % "1.1.2",
+      "io.kamon" %% "kamon-system-metrics"  % "1.0.1",
+      "io.kamon" %% "kamon-jdbc"            % "1.1.0",
       "io.kamon" %% "kamon-akka-remote-2.5" % "1.1.0"
     )
 

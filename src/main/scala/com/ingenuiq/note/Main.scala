@@ -4,7 +4,6 @@ import akka.actor.{ Actor, ActorLogging, ActorSystem, Props }
 import akka.cluster.ClusterEvent.ClusterDomainEvent
 import akka.cluster.{ Cluster, ClusterEvent }
 import akka.http.scaladsl.Http
-import akka.management.cluster.bootstrap.ClusterBootstrap
 import akka.management.scaladsl.AkkaManagement
 import akka.stream.ActorMaterializer
 import com.ingenuiq.note.command.CommandSupervisorActor
@@ -44,7 +43,6 @@ object Main extends App with LazyLogging with BaseRoutes {
   implicit val cluster: Cluster = Cluster(system)
 
   AkkaManagement(system).start()
-  ClusterBootstrap(system).start()
 
   cluster
     .subscribe(system.actorOf(Props[ClusterWatcher]), ClusterEvent.InitialStateAsEvents, classOf[ClusterDomainEvent])

@@ -25,7 +25,6 @@ class CommonPersistenceSerializer extends SerializerWithStringManifest with Lazy
       case None =>
         logger.error(s"Could not find a schema pair for $avroEventName")
         throw new NoSuchElementException(s"Could not find a schema pair for $avroEventName")
-
     }
   }
 

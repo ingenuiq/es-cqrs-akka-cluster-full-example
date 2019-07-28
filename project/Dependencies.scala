@@ -7,7 +7,7 @@ object Dependencies {
     val akkaHttp:                 String = "10.1.8"
     val akkaHttpCors:             String = "0.4.1"
     val akkaPersistenceInmemory:  String = "2.5.15.2"
-    val akkaPersistenceCassandra: String = "0.98"
+    val akkaPersistenceCassandra: String = "0.99"
     val enumeratum:               String = "1.5.13"
     val logbackClassic:           String = "1.2.3"
     val playJson:                 String = "2.7.4"
@@ -20,7 +20,7 @@ object Dependencies {
     val postgres:                 String = "42.2.6"
     val h2:                       String = "1.4.199"
     val classutil:                String = "1.5.1"
-    val mockitoCore:              String = "2.28.2"
+    val mockitoCore:              String = "3.0.0"
     val commonsCodec:             String = "1.12"
     val slf4jVersion:             String = "1.7.26"
   }
@@ -64,14 +64,14 @@ object Dependencies {
 
     private lazy val kamon: Seq[ModuleID] = Seq(
       "io.kamon" %% "kamon-akka-2.5"        % "1.1.4",
-      "io.kamon" %% "kamon-scala-future"    % "1.1.0",
-      "io.kamon" %% "kamon-core"            % "1.1.6",
-      "io.kamon" %% "kamon-logback"         % "1.0.7",
-      "io.kamon" %% "kamon-zipkin"          % "1.0.1",
+      "io.kamon" %% "kamon-scala-future"    % "2.0.0",
+      "io.kamon" %% "kamon-core"            % "2.0.0",
+      "io.kamon" %% "kamon-logback"         % "2.0.0",
+      "io.kamon" %% "kamon-zipkin"          % "2.0.0",
       "io.kamon" %% "kamon-akka-http-2.5"   % "1.1.2",
-      "io.kamon" %% "kamon-prometheus"      % "1.1.2",
-      "io.kamon" %% "kamon-system-metrics"  % "1.0.1",
-      "io.kamon" %% "kamon-jdbc"            % "1.1.0",
+      "io.kamon" %% "kamon-prometheus"      % "2.0.0",
+      "io.kamon" %% "kamon-system-metrics"  % "2.0.0",
+      "io.kamon" %% "kamon-jdbc"            % "2.0.0",
       "io.kamon" %% "kamon-akka-remote-2.5" % "1.1.0"
     )
 

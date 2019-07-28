@@ -10,6 +10,7 @@ import akka.stream.{ ActorMaterializer, ActorMaterializerSettings, Supervision }
 import com.typesafe.scalalogging.LazyLogging
 import kamon.Kamon
 import kamon.trace.{ IdentityProvider, Span, SpanContext }
+import org.postgresql.util.PSQLException
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
@@ -34,6 +35,9 @@ abstract class ViewBuilderActor extends Actor with LazyLogging {
   val identityProvider: IdentityProvider = new IdentityProvider.Default
 
   val decider: Supervision.Decider = {
+    case e: PSQLException =>
+      logger.error(s"Got postgres exception in view builder flow, stream will be stopped", e)
+      Supervision.Stop
     case NonFatal(ex) =>
       logger.error(s"Got non fatal exception in ViewBuilder $identifier flow", ex)
       Supervision.Resume

@@ -42,7 +42,7 @@ object Main extends App with LazyLogging with BaseRoutes {
 
   implicit val cluster: Cluster = Cluster(system)
 
-  AkkaManagement(system).start()
+//  AkkaManagement(system).start()
 
   cluster
     .subscribe(system.actorOf(Props[ClusterWatcher]), ClusterEvent.InitialStateAsEvents, classOf[ClusterDomainEvent])

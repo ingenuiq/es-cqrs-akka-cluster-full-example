@@ -5,7 +5,7 @@ import sbt.Keys._
 object Settings {
 
   val settings: Seq[Setting[_]] = Seq(
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.12.9",
     scalacOptions := Seq(
       "-unchecked",
       "-feature",

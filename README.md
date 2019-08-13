@@ -15,11 +15,14 @@ Application will constantly read from the event store and keep query side in syn
 
 Dependencies: Java 8 & sbt
 
-### Running with full authorization service (being able to login as different user)
+### Create a local cluster of two nodes
 
 - Run `docker-compose -f docker-compose-essential.yml up`
-- From the root directory run `sbt run`
-- Go to http://localhost:9001/ to test the application
+- From the root directory run `AKKA_CLUSTER_PORT=2551 HTTP_LISTEN_PORT=9001 sbt run` for first node
+- From the root directory run `AKKA_CLUSTER_PORT=2552 HTTP_LISTEN_PORT=9002 sbt run` for second node
+
+If you wish to run more nodes you can play with SEED_NODES override.
+
 
 ### Example of API usage
 

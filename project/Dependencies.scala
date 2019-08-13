@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   private[this] object Versions {
-    val akka:                     String = "2.5.23"
+    val akka:                     String = "2.5.24"
     val akkaHttp:                 String = "10.1.9"
     val akkaHttpCors:             String = "0.4.1"
     val akkaPersistenceInmemory:  String = "2.5.15.2"
@@ -55,7 +55,7 @@ object Dependencies {
     private lazy val logging: Seq[ModuleID] = Seq(
       "ch.qos.logback"             % "logback-classic" % Versions.logbackClassic,
       "com.typesafe.scala-logging" %% "scala-logging"  % Versions.scalaLogging,
-      "org.codehaus.janino"        % "janino"          % "3.0.14",
+      "org.codehaus.janino"        % "janino"          % "3.0.15",
       "com.typesafe.akka"          %% "akka-slf4j"     % Versions.akka
     )
 

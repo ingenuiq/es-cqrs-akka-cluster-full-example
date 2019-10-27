@@ -3,6 +3,7 @@ package com.ingenuiq.note
 import java.time._
 
 import kamon.Kamon
+import kamon.trace.Identifier
 
 package object utils {
 
@@ -10,9 +11,35 @@ package object utils {
 
   def now(zoneId: ZoneId = defaultZone): LocalDateTime = LocalDateTime.now(zoneId)
 
-  def currentSpanId:       String = Kamon.currentSpan().context().spanID.string
-  def currentParentSpanId: String = Kamon.currentSpan().context().parentID.string
-  def currentTraceId:      String = Kamon.currentSpan().context().traceID.string
+  def currentSpanId: String = {
+    val currentSpan = Kamon.currentSpan()
+    val spanID      = currentSpan.id
+
+    if (spanID == Identifier.Empty)
+      "undefined"
+    else
+      spanID.string
+  }
+
+  def currentParentSpanId: String = {
+    val currentSpan = Kamon.currentSpan()
+    val parentId    = currentSpan.parentId
+
+    if (parentId == Identifier.Empty)
+      "undefined"
+    else
+      parentId.string
+  }
+
+  def currentTraceId: String = {
+    val currentSpan = Kamon.currentSpan()
+    val traceID     = currentSpan.trace.id
+
+    if (traceID == Identifier.Empty)
+      "undefined"
+    else
+      traceID.string
+  }
 
   def localDateTimeToLong(date: LocalDateTime): Long          = date.toInstant(ZoneOffset.UTC).toEpochMilli
   def longToLocalDateTime(date: Long):          LocalDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date), ZoneOffset.UTC)

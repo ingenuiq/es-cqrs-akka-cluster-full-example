@@ -3,8 +3,10 @@
 <configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%date{ISO8601} %-5level %logger %X{akkaSource} %X{sourceThread} - %msg%n</pattern>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [%blue(%date{ISO8601})][%highlight(%-5level)][%magenta(%replace(%logger.%M){'\.\?+|\$*\.\$.+\$+\d*|\$',''})] - %msg %blue(%marker) [%cyan(%thread)] %n
+            </pattern>
         </encoder>
     </appender>
 
@@ -21,9 +23,9 @@
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="com.datastax.driver.core" level="INFO"/>
+    <logger name="com.datastax.driver" level="WARN"/>
 
-    <logger name="akka" level="INFO"/>
+    <logger name="akka" level="TRACE"/>
     <logger name="com.zaxxer" level="WARN"/>
     <logger name="io.netty" level="WARN"/>
 

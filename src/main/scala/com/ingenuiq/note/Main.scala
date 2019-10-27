@@ -20,7 +20,8 @@ import scala.util.{ Failure, Success }
 
 object Main extends App with LazyLogging with BaseRoutes {
 
-  val startSpan = Kamon.buildSpan("startup").start()
+  Kamon.init()
+  val startSpan = Kamon.spanBuilder("startup").start()
 
   implicit val system:           ActorSystem       = ActorSystem("note-actor-system")
   implicit val materializer:     ActorMaterializer = ActorMaterializer()
@@ -33,16 +34,7 @@ object Main extends App with LazyLogging with BaseRoutes {
   override val commandActor = system.actorOf(CommandSupervisorActor(), name = "commandActor")
   override val queryActor   = system.actorOf(QuerySupervisorActor(), name   = "queryActor")
 
-  if (settings.tracingMonitoringSettings.zipkinEnabled) {
-    logger.info("Zipkin tracing enabled")
-    Kamon.addReporter(new ZipkinReporter)
-  }
-  else
-    logger.info("Zipkin tracing disabled")
-
   implicit val cluster: Cluster = Cluster(system)
-
-//  AkkaManagement(system).start()
 
   cluster
     .subscribe(system.actorOf(Props[ClusterWatcher]), ClusterEvent.InitialStateAsEvents, classOf[ClusterDomainEvent])

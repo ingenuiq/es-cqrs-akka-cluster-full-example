@@ -33,14 +33,12 @@ abstract class IntegrationBase
 
   implicit def default: RouteTestTimeout = RouteTestTimeout(new DurationInt(10).second)
 
-  override implicit val patienceConfig: PatienceConfig = PatienceConfig(Span(10, Seconds), Span(500, Millis))
+  override implicit val patienceConfig: PatienceConfig = PatienceConfig(Span(30, Seconds), Span(500, Millis))
 
   lazy val commandActor: ActorRef = system.actorOf(CommandSupervisorActor(), "commandActor")
   lazy val queryActor:   ActorRef = system.actorOf(QuerySupervisorActor(), "queryActor")
 
   val settings: Settings = Settings.conf
-
-  setupCluster(system)
 
   lazy val commandRoutes: CommandRoutes = new CommandRoutes(commandActor, settings)
   lazy val queryRoutes:   QueryRoutes   = new QueryRoutes(queryActor, settings)
@@ -53,6 +51,7 @@ abstract class IntegrationBase
   override protected def beforeAll(): Unit = {
     super.beforeAll()
     EmbeddedCassandra.startCassandra()
+    setupCluster(system)
     new TableDefinitionCreator().createQuerySchemaWithRetry(1)
   }
 

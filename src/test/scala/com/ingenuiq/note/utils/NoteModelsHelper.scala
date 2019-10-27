@@ -3,7 +3,6 @@ package com.ingenuiq.note.utils
 import com.ingenuiq.note.command.note.Note
 import com.ingenuiq.note.common.NoteId
 import com.ingenuiq.note.http.command.CommandRequest.NotePayload
-import com.ingenuiq.note.http.query.QueryResponse.NoteResponse
 
 import scala.util.Random
 

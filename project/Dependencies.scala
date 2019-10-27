@@ -3,28 +3,28 @@ import sbt._
 object Dependencies {
 
   private[this] object Versions {
-    val akka:                     String = "2.5.24"
-    val akkaHttp:                 String = "10.1.9"
+    val akka:                     String = "2.5.26"
+    val akkaHttp:                 String = "10.1.10"
     val akkaHttpCors:             String = "0.4.1"
     val akkaPersistenceInmemory:  String = "2.5.15.2"
-    val akkaPersistenceCassandra: String = "0.99"
+    val akkaPersistenceCassandra: String = "0.100"
     val akkaKryoVersion:          String = "0.5.2"
     val enumeratum:               String = "1.5.13"
     val logbackClassic:           String = "1.2.3"
     val playJson:                 String = "2.7.4"
-    val pureConfig:               String = "0.11.1"
+    val pureConfig:               String = "0.12.1"
     val scalaLogging:             String = "3.9.2"
     val scalaTest:                String = "3.0.8"
     val akkaInMemory:             String = "2.5.1.1"
-    val avro4s:                   String = "2.0.4"
+    val avro4s:                   String = "3.0.2"
     val slick:                    String = "3.3.2"
-    val postgres:                 String = "42.2.6"
-    val h2:                       String = "1.4.199"
+    val postgres:                 String = "42.2.8"
+    val h2:                       String = "1.4.200"
     val classutil:                String = "1.5.1"
-    val mockitoCore:              String = "3.0.0"
+    val mockitoCore:              String = "3.1.0"
     val commonsCodec:             String = "1.13"
     val slf4jVersion:             String = "1.7.26"
-    val akkaManagementVersion:    String = "1.0.1"
+    val akkaManagementVersion:    String = "1.0.3"
   }
 
   val all: Seq[ModuleID] = ProductionDependencies.values ++ TestDependencies.values
@@ -36,7 +36,6 @@ object Dependencies {
 
     private lazy val akka: Seq[ModuleID] = Seq(
       "com.typesafe.akka"             %% "akka-actor"                   % Versions.akka,
-      "com.typesafe.akka"             %% "akka-stream"                  % Versions.akka,
       "com.typesafe.akka"             %% "akka-cluster"                 % Versions.akka,
       "com.typesafe.akka"             %% "akka-cluster-sharding"        % Versions.akka,
       "com.typesafe.akka"             %% "akka-persistence-query"       % Versions.akka,
@@ -46,7 +45,7 @@ object Dependencies {
       "com.lightbend.akka.management" %% "akka-management"              % Versions.akkaManagementVersion,
       "com.lightbend.akka.management" %% "akka-management-cluster-http" % Versions.akkaManagementVersion,
       "com.typesafe.akka"             %% "akka-discovery"               % Versions.akka,
-      "com.github.TanUkkii007"        %% "akka-cluster-custom-downing"  % "0.0.12",
+      "com.github.TanUkkii007"        %% "akka-cluster-custom-downing"  % "0.0.13",
       "com.github.romix.akka"         %% "akka-kryo-serialization"      % Versions.akkaKryoVersion
     )
 
@@ -55,7 +54,7 @@ object Dependencies {
     private lazy val logging: Seq[ModuleID] = Seq(
       "ch.qos.logback"             % "logback-classic" % Versions.logbackClassic,
       "com.typesafe.scala-logging" %% "scala-logging"  % Versions.scalaLogging,
-      "org.codehaus.janino"        % "janino"          % "3.0.15",
+      "org.codehaus.janino"        % "janino"          % "3.1.0",
       "com.typesafe.akka"          %% "akka-slf4j"     % Versions.akka
     )
 
@@ -70,16 +69,15 @@ object Dependencies {
     private lazy val playJson: Seq[ModuleID] = Seq("com.typesafe.play" %% "play-json" % Versions.playJson)
 
     private lazy val kamon: Seq[ModuleID] = Seq(
-      "io.kamon" %% "kamon-akka-2.5"        % "1.1.4",
-      "io.kamon" %% "kamon-scala-future"    % "1.1.0",
-      "io.kamon" %% "kamon-core"            % "1.1.6",
-      "io.kamon" %% "kamon-logback"         % "1.0.7",
-      "io.kamon" %% "kamon-zipkin"          % "1.0.1",
-      "io.kamon" %% "kamon-akka-http-2.5"   % "1.1.2",
-      "io.kamon" %% "kamon-prometheus"      % "1.1.2",
-      "io.kamon" %% "kamon-system-metrics"  % "1.0.1",
-      "io.kamon" %% "kamon-jdbc"            % "1.1.0",
-      "io.kamon" %% "kamon-akka-remote-2.5" % "1.1.0"
+      "io.kamon" %% "kamon-akka"           % "2.0.0",
+      "io.kamon" %% "kamon-scala-future"   % "2.0.1",
+      "io.kamon" %% "kamon-core"           % "2.0.1",
+      "io.kamon" %% "kamon-logback"        % "2.0.1",
+      "io.kamon" %% "kamon-zipkin"         % "2.0.0",
+      "io.kamon" %% "kamon-akka-http"      % "2.0.2",
+      "io.kamon" %% "kamon-prometheus"     % "2.0.0",
+      "io.kamon" %% "kamon-system-metrics" % "2.0.0",
+      "io.kamon" %% "kamon-jdbc"           % "2.0.0"
     )
 
     private lazy val commonCodec: Seq[ModuleID] = Seq("commons-codec" % "commons-codec" % Versions.commonsCodec)

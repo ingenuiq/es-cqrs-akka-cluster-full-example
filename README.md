@@ -17,7 +17,7 @@ Dependencies: Java 8 & sbt
 
 ### Create a local cluster of two nodes
 
-- Run `docker-compose -f docker-compose-essential.yml up`
+- Run `docker-compose -f docker/docker-compose-essential.yml up`
 - From the root directory run `AKKA_CLUSTER_PORT=2551 HTTP_LISTEN_PORT=9001 sbt run` for first node
 - From the root directory run `AKKA_CLUSTER_PORT=2552 HTTP_LISTEN_PORT=9002 sbt run` for second node
 
@@ -48,7 +48,7 @@ Response:
 #### Fetch individual note
 Request:
 
-    curl -X GET http://localhost:9001/api/query/note/af8a7f3b-67ca-45cd-87d1-44438f1d3f58
+    curl -X GET http://localhost:9001/api/query/note/44b6f6cc-6f0f-4d22-928d-99f5ea74885b
 
 Response:
 

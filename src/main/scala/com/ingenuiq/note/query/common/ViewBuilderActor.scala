@@ -9,7 +9,7 @@ import akka.stream.scaladsl.{ Flow, Sink, Source }
 import akka.stream.{ ActorMaterializer, ActorMaterializerSettings, Supervision }
 import com.typesafe.scalalogging.LazyLogging
 import kamon.Kamon
-import kamon.trace.{ IdentityProvider, Span, SpanContext }
+import kamon.trace.Span
 import org.postgresql.util.PSQLException
 
 import scala.concurrent.Future
@@ -31,8 +31,6 @@ abstract class ViewBuilderActor extends Actor with LazyLogging {
 
   import ViewBuilderActor._
   import context.dispatcher
-
-  val identityProvider: IdentityProvider = new IdentityProvider.Default
 
   val decider: Supervision.Decider = {
     case e: PSQLException =>
@@ -56,15 +54,7 @@ abstract class ViewBuilderActor extends Actor with LazyLogging {
     Flow[EventEnvelope]
       .collect {
         case EventEnvelope(offset, persistenceId, _, event: PersistentEvent) =>
-          val parentSpan = Span.Remote(
-            SpanContext(
-              traceID          = identityProvider.traceIdGenerator().from(event.persistentEventMetadata.correlationId.value),
-              spanID           = identityProvider.spanIdGenerator().generate(),
-              parentID         = identityProvider.spanIdGenerator().from(event.persistentEventMetadata.spanId),
-              samplingDecision = SpanContext.SamplingDecision.Sample
-            )
-          )
-          val span = Kamon.buildSpan("Reply from ES").asChildOf(parentSpan).start()
+          val span = Kamon.spanBuilder("Reply from ES").start()
           PersistedEventEnvelope(offset, persistenceId, event, span)
         case x =>
           throw new RuntimeException(s"Invalid event in the journal! $x")
@@ -99,7 +89,7 @@ abstract class ViewBuilderActor extends Actor with LazyLogging {
         .runWith(Sink.ignore)
         .onComplete {
           case Failure(err) =>
-            logger.error(s"Persistence query $identifier ended with failure: ${err.getMessage}")
+            logger.error(s"Persistence query $identifier ended with failure: ${err.getMessage}", err)
             self ! PoisonPill
           case Success(_) =>
             logger.error(s"Persistence query $identifier ended successfully")

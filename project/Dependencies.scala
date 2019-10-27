@@ -8,7 +8,7 @@ object Dependencies {
     val akkaHttpCors:             String = "0.4.1"
     val akkaPersistenceInmemory:  String = "2.5.15.2"
     val akkaPersistenceCassandra: String = "0.100"
-    val akkaKryoVersion:          String = "0.5.2"
+    val akkaKryoVersion:          String = "1.0.0"
     val enumeratum:               String = "1.5.13"
     val logbackClassic:           String = "1.2.3"
     val playJson:                 String = "2.7.4"
@@ -46,7 +46,7 @@ object Dependencies {
       "com.lightbend.akka.management" %% "akka-management-cluster-http" % Versions.akkaManagementVersion,
       "com.typesafe.akka"             %% "akka-discovery"               % Versions.akka,
       "com.github.TanUkkii007"        %% "akka-cluster-custom-downing"  % "0.0.13",
-      "com.github.romix.akka"         %% "akka-kryo-serialization"      % Versions.akkaKryoVersion
+      "io.altoo"                      %% "akka-kryo-serialization"      % Versions.akkaKryoVersion
     )
 
     private lazy val avro4s: Seq[ModuleID] = Seq("com.sksamuel.avro4s" %% "avro4s-core" % Versions.avro4s)

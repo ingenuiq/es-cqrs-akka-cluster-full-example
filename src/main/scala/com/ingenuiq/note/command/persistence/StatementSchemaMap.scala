@@ -8,7 +8,7 @@ import com.typesafe.scalalogging.LazyLogging
 import org.apache.avro.Schema
 import org.apache.commons.codec.digest.DigestUtils
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.io.Source
 
 case class SchemaInfo(manifestHash: HashFingerprint, schema: Schema, filePath: String)

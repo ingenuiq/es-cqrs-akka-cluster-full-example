@@ -61,6 +61,6 @@ class ClusterWatcher extends Actor with ActorLogging {
   implicit val cluster: Cluster = Cluster(context.system)
 
   override def receive: Receive = {
-    case msg ⇒ log.info(s"Cluster ${cluster.selfAddress} >>> " + msg)
+    case msg => log.info(s"Cluster ${cluster.selfAddress} >>> " + msg)
   }
 }

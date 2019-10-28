@@ -13,7 +13,6 @@ import com.ingenuiq.note.query.dao.TableDefinitionCreator
 import com.ingenuiq.note.settings.Settings
 import com.typesafe.scalalogging.LazyLogging
 import kamon.Kamon
-import kamon.zipkin.ZipkinReporter
 
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.{ Failure, Success }

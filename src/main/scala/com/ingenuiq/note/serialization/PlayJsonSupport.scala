@@ -13,6 +13,7 @@ import scala.collection.immutable.Seq
 object PlayJsonSupport extends PlayJsonSupport {
 
   final case class PlayJsonError(error: JsError) extends RuntimeException {
+
     override def getMessage: String =
       JsError.toJson(error).toString()
   }

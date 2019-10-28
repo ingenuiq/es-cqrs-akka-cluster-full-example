@@ -34,7 +34,7 @@ object AvroSupport {
     s"$gitAddCmd $avscPath".!!
   }
 
-  val avroSettings = Seq(
+  val settings = Seq(
     Compile / compile := (Compile / compile).dependsOn(generateInternalAvsc).value,
     sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue,
     avroSpecificSourceDirectories in Compile += (sourceDirectory in Compile).value / "resources" / "avro" / "avsc",

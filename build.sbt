@@ -12,11 +12,12 @@ inConfig(IntegrationTest)(scalafmtConfigSettings)
 lazy val root = project
   .in(file("."))
   .configs(IntegrationTest extend Test)
-  .enablePlugins(AshScriptPlugin, JavaServerAppPackaging, JavaAgent)
+  .enablePlugins(AshScriptPlugin, JavaServerAppPackaging)
   .settings(
     Settings.settings,
     Defaults.itSettings,
     DockerSettings.settings,
+    AvroSupport.settings,
     publishArtifact in (Compile, packageDoc) := false,
     libraryDependencies ++= Dependencies.all,
     mainClass in (Compile, run) := Some(mainClassName),
@@ -30,8 +31,5 @@ lazy val root = project
     fork in run := true,
     publishArtifact in (Test, packageBin) := true,
     concurrentRestrictions in Global += Tags.limit(Tags.Test, 1),
-    javaAgents += "org.aspectj" % "aspectjweaver" % "1.9.2",
-    javaOptions in Universal += "-Dorg.aspectj.tracing.factory=default",
-    AvroSupport.avroSettings,
     resolvers +=   Resolver.bintrayRepo("tanukkii007", "maven")
   )

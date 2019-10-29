@@ -17,9 +17,8 @@ import kamon.Kamon
 import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.{ Failure, Success }
 
-object Main extends App with LazyLogging with BaseRoutes {
+object Main extends App with KamonInitializer with LazyLogging with BaseRoutes {
 
-  Kamon.init()
   val startSpan = Kamon.spanBuilder("startup").start()
 
   implicit val system:           ActorSystem       = ActorSystem("note-actor-system")
@@ -54,6 +53,10 @@ object Main extends App with LazyLogging with BaseRoutes {
       system.terminate()
     }
   }
+}
+
+trait KamonInitializer {
+  Kamon.init()
 }
 
 class ClusterWatcher extends Actor with ActorLogging {

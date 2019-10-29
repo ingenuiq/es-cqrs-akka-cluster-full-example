@@ -68,7 +68,7 @@ object Dependencies {
 
     private lazy val playJson: Seq[ModuleID] = Seq("com.typesafe.play" %% "play-json" % Versions.playJson)
 
-    private lazy val kamon: Seq[ModuleID] = Seq("io.kamon" %% "kamon-bundle" % "2.0.1", "io.kamon" %% "kamon-apm-reporter" % "2.0.0")
+    private lazy val kamon: Seq[ModuleID] = Seq("io.kamon" %% "kamon-bundle" % "2.0.3", "io.kamon" %% "kamon-apm-reporter" % "2.0.0")
 
     private lazy val commonCodec: Seq[ModuleID] = Seq("commons-codec" % "commons-codec" % Versions.commonsCodec)
   }
